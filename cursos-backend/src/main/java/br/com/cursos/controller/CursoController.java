@@ -27,8 +27,8 @@ public class CursoController {
 	private CursoService cursoService;
 
 	@GetMapping
-	public List<Curso> todos() {
-		return cursoService.todosCursos();
+	public List<Curso> todos(Curso filtro) {
+		return cursoService.filtraPor(filtro);
 	}
 
 	@GetMapping("/{id}")

@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@NamedQuery(name = "Curso.filtraPorNome", query = "SELECT c FROM Curso c WHERE c.nome = ?1")
 public class Curso {
 
 	@Id
