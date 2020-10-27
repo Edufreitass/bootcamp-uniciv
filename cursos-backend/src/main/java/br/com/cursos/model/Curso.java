@@ -1,5 +1,6 @@
 package br.com.cursos.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -8,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Curso {
@@ -17,11 +21,16 @@ public class Curso {
 	private Integer id;
 
 	@Column(name = "nome", length = 100, nullable = false)
+	@NotBlank(message = "{curso.nome.obrigatorio}")
 	private String nome;
 
 	@Column(name = "preco", precision = 12, scale = 2)
+	@Min(value = 1, message = "{curso.preco.maior-que-um}")
 	private Double preco;
 
+	@Future(message = "{curso.disponivel-a-partir.invalido}")
+	private LocalDate disponivelAPartir;
+	
 	@OneToOne
 	@JoinColumn(name = "arquivo_id")
 	private Arquivo arquivo;
@@ -83,4 +92,12 @@ public class Curso {
 		this.atualizadoEm = atualizadoEm;
 	}
 
+	public LocalDate getDisponivelAPartir() {
+		return disponivelAPartir;
+	}
+
+	public void setDisponivelAPartir(LocalDate disponivelAPartir) {
+		this.disponivelAPartir = disponivelAPartir;
+	}
+	
 }
